@@ -153,3 +153,9 @@ body{
  #sendMessage i:active{
     transform: scale(0.9);
  }
+
+ @media screen and (max-width:500px){
+    #allMessages{
+        width:65%;
+    }
+ }
