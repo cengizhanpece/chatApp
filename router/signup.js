@@ -14,7 +14,7 @@ router.post('/signup',(req,res) =>{ // signup form
     var kullaniciId = req.body.kullaniciId;
     var sifre = req.body.Sifre;
     var sifreTekrar = req.body.SifreTekrar;
-    
+    console.log(uri);
     if(kullaniciId.trim() == "" || sifre.trim() == "") // send error if id or ps empty
       {
         res.render('signup', {err:true});
