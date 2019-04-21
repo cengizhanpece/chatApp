@@ -3,7 +3,7 @@ const router = express.Router();
 const session = require('express-session');
 const mongodb = require('mongodb').MongoClient;
 // database connection
-const uri = process.env.URL;
+const uri = MONGODB_URL;
 const option = { useNewUrlParser: true };
 const mydb = "mydb"
 

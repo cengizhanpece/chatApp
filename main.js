@@ -18,7 +18,6 @@ app.use(session({'secret': 'ChatApp',
 
 app.get('/signup', (req,res) =>{
   if(req.session.kullaniciId || req.session.sifre){
-    console.log("içerdeyiz başkan");
     res.redirect('/index');
     return true;
   }
@@ -27,7 +26,6 @@ app.get('/signup', (req,res) =>{
 
 app.get('/', (req,res)=>{
   if(req.session.kullaniciId || req.session.sifre){
-    console.log("içerdeyiz başkan");
     res.redirect('/index');
     return true;
   }
