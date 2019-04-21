@@ -147,9 +147,9 @@ body{
  }
 
  #allMessages:last-child{
-     margin-bottom: 20px;
- }
+    padding-bottom: 50px;
+ }  
 
  #sendMessage i:active{
-     transform: scale(0.9);
+    transform: scale(0.9);
  }
