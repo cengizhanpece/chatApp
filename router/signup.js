@@ -4,7 +4,7 @@ const router = express.Router();
 
 const mongodb = require('mongodb').MongoClient;
 // database connection
-const uri = process.env.MONGODB_URL;
+const uri = encodeURI(process.env.MONGODB_URL);
 const option = { useNewUrlParser: true };
 const mydb = "mydb"
 
