@@ -146,6 +146,10 @@ body{
      cursor: pointer;
  }
 
+ #allMessages:last-child{
+     margin-bottom: 20px;
+ }
+
  #sendMessage i:active{
      transform: scale(0.9);
  }
