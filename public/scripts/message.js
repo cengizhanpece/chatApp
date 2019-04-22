@@ -18,7 +18,7 @@ document.getElementById("sendMessageBtn").addEventListener("click", function(){
     var messageValue = message.value.trim();
     if(messageValue != ""){
 
-        socket.emit("new message", messageValue);
+        socket.emit("new message", messageValue.replace(/<[^>]*>/g, ''));
         message.value = "";
     }
 });
