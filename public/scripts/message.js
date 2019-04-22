@@ -1,6 +1,7 @@
 
 var socket = io();
 var uniqueUsers = [];
+var ready = false;
 socket.on('online users', function(users){
     uniqueUsers = [];
     users.forEach(element=>{
@@ -24,7 +25,8 @@ document.getElementById("sendMessageBtn").addEventListener("click", function(){
 });
 
 socket.on("oldMessages", (messages)=>{
-    let allMessages = document.getElementById("allMessages");
+    if(ready==false){
+        let allMessages = document.getElementById("allMessages");
     messages.forEach(element=>{
         if(element.owner == urself){
             let messageOutMain = document.createElement("div");
@@ -63,6 +65,8 @@ socket.on("oldMessages", (messages)=>{
             allMessages.appendChild(messageInMain);
         }
     })
+    }
+    ready=true;
     allMessages.scrollTop = allMessages.scrollHeight;
 })
 
