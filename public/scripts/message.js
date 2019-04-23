@@ -2,7 +2,7 @@
 var socket = io();
 var uniqueUsers = [];
 var countTotal;
-var countIndex = 20;
+var countIndex = 40;
 var ready = false;
 var ismostOld = false;
 socket.on('online users', function(users){
