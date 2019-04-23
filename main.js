@@ -82,7 +82,7 @@ io.on('connection', function(socket){
     // wait for old messages come from database
     var allMessage = () => new Promise((resolve,reject)=>{
       db.collection("messages")
-      .find().sort().limit(50).skip(db.collection.count()-10).toArray((err,result)=>{
+      .find().sort().limit(50).skip(db.collection("messages").count()-10).toArray((err,result)=>{
         if(err) reject(err);
 
         resolve(result);
