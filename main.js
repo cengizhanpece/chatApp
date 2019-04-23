@@ -95,7 +95,7 @@ io.on('connection', function(socket){
       result.forEach(element=>{
         messages.push(element); // push all messages to array
       })
-      io.sockets.socket(socketId).emit("oldMessages", messages); //send to client
+      io.sockets.socket(socket.id).emit("oldMessages", messages); //send to client
     })
     .catch((err)=>console.log(err));
     client.close();
