@@ -24,6 +24,17 @@ document.getElementById("sendMessageBtn").addEventListener("click", function(){
     }
 });
 
+document.getElementById("sendMessageTxt").addEventListener("keydown", function(event) {
+    if (event.keyCode === 13) {
+        var message = document.getElementById("sendMessageTxt");
+        var messageValue = message.value.trim();
+        if(messageValue != ""){
+            socket.emit("new message", messageValue.replace(/<[^>]*>/g, ''));
+            message.value = "";
+        }
+    }
+  });
+
 socket.on("oldMessages", (messages)=>{
     if(ready==false){
         let allMessages = document.getElementById("allMessages");

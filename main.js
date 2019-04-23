@@ -92,10 +92,7 @@ io.on('connection', function(socket){
     
     allMessage()
     .then(result=>{
-      
-        io.sockets.connected[socket.id].emit("oldMessages", result); // push all messages to array
-      
-       //send to client
+        io.sockets.connected[socket.id].emit("oldMessages", result); // push all messages to client
     })
     .catch((err)=>console.log(err));
     client.close();
