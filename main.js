@@ -82,17 +82,24 @@ io.on('connection', function(socket){
     // wait for old messages come from database
     var allMessage = () => new Promise((resolve,reject)=>{
       db.collection("messages")
-      .find()
-      .toArray((err,result)=>{
+      db.collections.find().sort().limit(50).skip(db.collection.count()-10).toArray((err,result)=>{
         if(err) reject(err);
 
         resolve(result);
       })
+     
+     
+      /* .find()
+      .toArray((err,result)=>{
+        if(err) reject(err);
+
+        resolve(result);
+      }) */
     });
     
     allMessage()
     .then(result=>{
-        io.sockets.connected[socket.id].emit("oldMessages", result); // push all messages to client
+        io.sockets.connected[socket.id].emit("oldMessages", result); // push all messages just new client
     })
     .catch((err)=>console.log(err));
     client.close();
@@ -112,7 +119,6 @@ io.on('connection', function(socket){
             const db = client.db("mydb");
             db.collection("messages")
             .insertOne({message: message, owner: element.kullaniciId}); // add to database
-            messages.push({message: message, owner: element.kullaniciId}) // add to array
             io.emit("new message", message, element.kullaniciId);
             client.close();
           })
