@@ -13,10 +13,10 @@ const express = require('express'),
       port = process.env.PORT || 5000;
 
       var onlineUsers = [];
-      var messages = [];
+      
  
 // database connection
-const uri = encodeURI(process.env.MONGODB_URL);
+const uri = "mongodb+srv://Cengizhan:Cengiz53@cengizhan-qpwns.mongodb.net/" //encodeURI(process.env.MONGODB_URL);
 const option = { useNewUrlParser: true };
 
 
@@ -78,31 +78,32 @@ io.on('connection', function(socket){
   
   mongodb.connect(uri,option, (err,client)=>{
     const db = client.db("mydb");
-
-    // wait for old messages come from database
-    var allMessage = () => new Promise((resolve,reject)=>{
-      db.collection("messages")
-      .find().skip(db.collection("messages").count()-10).limit(50).toArray((err,result)=>{
+    var countMessage = () =>{ // return message size
+      return new Promise((resolve,reject)=>{
+        resolve(db.collection("messages").countDocuments());
+      })
+    }
+    
+    var allMessage = () => new Promise((resolve,reject)=>{ // return last 50 message
+     
+      countMessage()
+      .then(count=>{
+        db.collection("messages")
+      .find().sort({"id": 1}).skip(count - 20).limit(20).toArray((err,result)=>{ 
         if(err) reject(err);
-
+        console.log(count -50);
         resolve(result);
       })
-     
-     
-      /* .find()
-      .toArray((err,result)=>{
-        if(err) reject(err);
-
-        resolve(result);
-      }) */
-    });
+    })
+  });
     
     allMessage()
-    .then(result=>{
-        io.sockets.connected[socket.id].emit("oldMessages", result); // push all messages just new client
+    .then(result=>{ // wait for old messages come from database
+        io.sockets.connected[socket.id].emit("oldMessages", result); // push messages just new client 
+        client.close();
     })
     .catch((err)=>console.log(err));
-    client.close();
+    
   })
 
 
@@ -112,20 +113,19 @@ io.on('connection', function(socket){
 
   socket.on('new message', (message)=>{
     if(message.trim() != ""){
-      
       onlineUsers.forEach(element=>{
         if(element.socketId == socket.id){
           mongodb.connect(uri, option, (err, client)=>{
+            var messagesid = new Date().getTime();
             const db = client.db("mydb");
             db.collection("messages")
-            .insertOne({message: message, owner: element.kullaniciId}); // add to database
+            .insertOne({message: message, owner: element.kullaniciId,id:messagesid}); // add to database
             io.emit("new message", message, element.kullaniciId);
             client.close();
+            
           })
         }
       })
-
-
     }
   });
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const session = require('express-session');
 const mongodb = require('mongodb').MongoClient;
 // database connection
-const uri = encodeURI(process.env.MONGODB_URL);
+const uri = "mongodb+srv://Cengizhan:Cengiz53@cengizhan-qpwns.mongodb.net/" //encodeURI(process.env.MONGODB_URL);
 const option = { useNewUrlParser: true };
 const mydb = "mydb"
 
