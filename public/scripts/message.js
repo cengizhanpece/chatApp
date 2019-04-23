@@ -1,7 +1,10 @@
 
 var socket = io();
 var uniqueUsers = [];
+var countTotal;
+var countIndex = 20;
 var ready = false;
+var ismostOld = false;
 socket.on('online users', function(users){
     uniqueUsers = [];
     users.forEach(element=>{
@@ -35,7 +38,112 @@ document.getElementById("sendMessageTxt").addEventListener("keydown", function(e
     }
   });
 
-socket.on("oldMessages", (messages)=>{
+socket.on("oldMessages", (messages,count)=>{
+    renderMassage(messages);
+    countTotal = count;
+    console.log(countTotal);
+})
+
+socket.on("new message", (messageContent,owner)=>{
+    if(owner == urself){
+        let messageOutMain = document.createElement("div");
+        messageOutMain.className = "message-out-main";
+        let messageOut = document.createElement("div");
+        messageOut.className = "message-out";
+        let nameOut = document.createElement("div");
+        nameOut.className = "name-out";
+        let message = document.createElement("div");
+        message.className = "message";
+
+        nameOut.innerHTML = owner;
+        message.innerHTML = messageContent;
+
+        messageOut.appendChild(nameOut);
+        messageOut.appendChild(message);
+        messageOutMain.appendChild(messageOut);
+        allMessages.appendChild(messageOutMain);
+    }
+    else{
+        let messageInMain = document.createElement("div");
+        messageInMain.className = "message-in-main";
+        let messageIn = document.createElement("div");
+        messageIn.className = "message-in";
+        let nameIn = document.createElement("div");
+        nameIn.className = "name-in";
+        let message = document.createElement("div");
+        message.className = "message";
+
+        nameIn.innerHTML = owner;
+        message.innerHTML = messageContent;
+
+        messageIn.appendChild(nameIn);
+        messageIn.appendChild(message);
+        messageInMain.appendChild(messageIn);
+        allMessages.appendChild(messageInMain);
+    }
+
+    if(allMessages.scrollHeight - allMessages.scrollTop <= 1000){
+        allMessages.scrollTop = allMessages.scrollHeight;
+    }  
+})
+
+document.getElementById("allMessages").addEventListener("scroll", ()=>{
+    var allMessages = document.getElementById("allMessages");
+    if(allMessages.scrollTop == 0){
+        socket.emit("ask older massage", countIndex,countTotal);
+    }
+})
+
+
+socket.on("send older message", (messages)=>{
+
+    
+        messages.slice().reverse().forEach(element=> {
+            if(element.owner == urself){
+                let messageOutMain = document.createElement("div");
+                messageOutMain.className = "message-out-main";
+                let messageOut = document.createElement("div");
+                messageOut.className = "message-out";
+                let nameOut = document.createElement("div");
+                nameOut.className = "name-out";
+                let message = document.createElement("div");
+                message.className = "message";
+    
+                nameOut.innerHTML = element.owner;
+                message.innerHTML = element.message;
+    
+                messageOut.appendChild(nameOut);
+                messageOut.appendChild(message);
+                messageOutMain.appendChild(messageOut);
+                allMessages.insertBefore(messageOutMain, allMessages.firstChild);
+            }
+            else{
+                let messageInMain = document.createElement("div");
+                messageInMain.className = "message-in-main";
+                let messageIn = document.createElement("div");
+                messageIn.className = "message-in";
+                let nameIn = document.createElement("div");
+                nameIn.className = "name-in";
+                let message = document.createElement("div");
+                message.className = "message";
+    
+                nameIn.innerHTML = element.owner;
+                message.innerHTML = element.message;
+    
+                messageIn.appendChild(nameIn);
+                messageIn.appendChild(message);
+                messageInMain.appendChild(messageIn);
+                allMessages.insertBefore(messageInMain, allMessages.firstChild);
+            }
+        });
+        countIndex += 20;
+    
+    
+})
+
+
+
+function renderMassage(messages){
     if(ready==false){
         let allMessages = document.getElementById("allMessages");
     messages.forEach(element=>{
@@ -79,47 +187,4 @@ socket.on("oldMessages", (messages)=>{
     }
     ready=true;
     allMessages.scrollTop = allMessages.scrollHeight;
-})
-
-socket.on("new message", (messageContent,owner)=>{
-    if(owner == urself){
-        let messageOutMain = document.createElement("div");
-        messageOutMain.className = "message-out-main";
-        let messageOut = document.createElement("div");
-        messageOut.className = "message-out";
-        let nameOut = document.createElement("div");
-        nameOut.className = "name-out";
-        let message = document.createElement("div");
-        message.className = "message";
-
-        nameOut.innerHTML = owner;
-        message.innerHTML = messageContent;
-
-        messageOut.appendChild(nameOut);
-        messageOut.appendChild(message);
-        messageOutMain.appendChild(messageOut);
-        allMessages.appendChild(messageOutMain);
-    }
-    else{
-        let messageInMain = document.createElement("div");
-        messageInMain.className = "message-in-main";
-        let messageIn = document.createElement("div");
-        messageIn.className = "message-in";
-        let nameIn = document.createElement("div");
-        nameIn.className = "name-in";
-        let message = document.createElement("div");
-        message.className = "message";
-
-        nameIn.innerHTML = owner;
-        message.innerHTML = messageContent;
-
-        messageIn.appendChild(nameIn);
-        messageIn.appendChild(message);
-        messageInMain.appendChild(messageIn);
-        allMessages.appendChild(messageInMain);
-    }
-
-    if(allMessages.scrollHeight - allMessages.scrollTop <= 1000){
-        allMessages.scrollTop = allMessages.scrollHeight;
-    }
-})
+}

@@ -88,18 +88,20 @@ io.on('connection', function(socket){
      
       countMessage()
       .then(count=>{
-        db.collection("messages")
-      .find().sort({"id": 1}).skip(count - 20).limit(20).toArray((err,result)=>{ 
-        if(err) reject(err);
-        console.log(count -50);
-        resolve(result);
-      })
+        if(count-20 > 0 ){
+          db.collection("messages")
+          .find().sort({"id": 1}).skip(count - 20).limit(20).toArray((err,result)=>{ 
+            if(err) reject(err);
+            console.log(count -50);
+            resolve({result:result,count:count});
+          })
+        }
     })
   });
     
     allMessage()
-    .then(result=>{ // wait for old messages come from database
-        io.sockets.connected[socket.id].emit("oldMessages", result); // push messages just new client 
+    .then((result)=>{ // wait for old messages come from database
+        io.sockets.connected[socket.id].emit("oldMessages", result.result,result.count); // push messages just new client 
         client.close();
     })
     .catch((err)=>console.log(err));
@@ -129,7 +131,7 @@ io.on('connection', function(socket){
     }
   });
 
-  socket.on('disconnect', function(){
+  socket.on('disconnect', function(){ //trigger when someone disconnected
     var geciciArray = [];
     onlineUsers.forEach(element=>{
       if(element.socketId == socket.id){}
@@ -150,6 +152,31 @@ io.on('connection', function(socket){
     });
     io.emit("online users" ,onlineUsers);
   });
+
+
+  socket.on('ask older massage', (countIndex,countTotal)=>{
+    var newMessage = () =>{
+      return new Promise((resolve,reject)=>{
+        mongodb.connect(uri,option, (err,client)=>{
+          if (err) reject(err);
+          var db = client.db("mydb");
+          if(countTotal-countIndex> 0 ){
+            db.collection("messages")
+            .find().sort({"id": 1}).skip(countTotal - countIndex).limit(20).toArray((err,result)=>{ 
+              if(err) reject(err);
+              resolve(result);
+            })
+          }
+        })
+      })
+    }
+
+    newMessage()
+    .then(result=>{
+      io.sockets.connected[socket.id].emit("send older message", result);
+    })
+  })
+
 });
 
 /* ------------------------ */
