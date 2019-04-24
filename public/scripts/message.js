@@ -23,6 +23,13 @@ socket.on('online users', function(users){
             newUser.innerHTML = element;
             main.appendChild(newUser);
         })
+
+        if(main.className == "opened"){
+            var user = document.getElementsByClassName("user");
+            for(var i = 0; i<user.length; i++){
+                user[i].style.height = "40px";
+            }
+        }
     })
 });
 
