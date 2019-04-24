@@ -9,7 +9,8 @@ menuIcon.addEventListener("click", ()=>{
        
 
         span1.style.transform="rotate(50deg)";
-        span1.style.marginTop="10px";
+        span1.style.marginTop="20px";
+        span2.style.marginTop="10px";
         span1.style.backgroundColor="white";
         span2.style.backgroundColor="white";
         span2.style.transform="rotate(-50deg)";
@@ -23,3 +24,23 @@ menuIcon.addEventListener("click", ()=>{
         menu.removeAttribute("style");
     }
 });
+
+document.getElementById("getOnlineUsers").addEventListener("click", ()=>{
+    let users = document.getElementById("users");
+    let user =  document.getElementsByClassName("user");
+    
+   if(users.className == ""){
+        users.className = "opened";
+        for(var i = 0; i<user.length; i++){
+            user[i].style.height = "40px";
+        }
+        
+
+    }
+    else{
+        users.removeAttribute("class");
+        for(var i = 0; i<user.length; i++){
+            user[i].style.height = "0px";
+        }
+    }
+})

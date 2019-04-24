@@ -39,8 +39,31 @@
 }
 
 #hamburgerWelcome{
-    margin-top: 50px;
+    margin-top: 60px;
     padding: 10px;
     color: white;
     font-size: 18px;
+}
+#onlineUsers{
+    display: flex;
+    flex-direction: column;
+    height: 0%;
+}
+
+.user{
+    margin: 10px;
+    color: white;
+    height: 0px;
+    overflow: hidden;
+    transition: 0.2s ease-out;
+}
+
+#onlineUsers i{
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+}
+#onlineUsers i::before{
+    margin-right: 10px;
 }

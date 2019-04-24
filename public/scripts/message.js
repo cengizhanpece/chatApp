@@ -11,8 +11,17 @@ socket.on('online users', function(users){
         if(uniqueUsers.findIndex(x => x == element.kullaniciId) == -1){
             uniqueUsers.push(element.kullaniciId);
         }
+        let main = document.getElementById("users");
+
+        while(main.firstChild){
+            main.removeChild(main.firstChild);
+        }
+
         uniqueUsers.forEach(element=>{
-            console.log(element);
+            let newUser = document.createElement("div");
+            newUser.className = "user";
+            newUser.innerHTML = element;
+            main.appendChild(newUser);
         })
     })
 });
@@ -95,8 +104,7 @@ document.getElementById("allMessages").addEventListener("scroll", ()=>{
 
 
 socket.on("send older message", (messages)=>{
-
-    
+     
         messages.slice().reverse().forEach(element=> {
             if(element.owner == urself){
                 let messageOutMain = document.createElement("div");
