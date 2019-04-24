@@ -1,0 +1,46 @@
+#hamburger-menu-icon{
+    position: absolute;
+    left:5px;
+    display: inline-block;
+    height: 34px;
+    width: 50px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+#hamburger-1,
+#hamburger-2,
+#hamburger-3{
+    background-color: #333;
+    height: 7px;
+    width: 45px;
+    cursor: pointer;
+    transition: .3s;
+    position: absolute;
+}
+#hamburger-1{
+    top: 10px;
+
+}
+#hamburger-2{
+    top:20px;
+}
+#hamburger-3{
+    top:30px;
+}
+#hamburger{
+    height: 100vh;
+    background-color: #333;
+    width: 300px;
+    z-index: 1;
+    position: absolute;
+    transform: translateX(-100%);
+    transition: .3s;
+}
+
+#hamburgerWelcome{
+    margin-top: 50px;
+    padding: 10px;
+    color: white;
+    font-size: 18px;
+}

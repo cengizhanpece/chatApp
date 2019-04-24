@@ -21,7 +21,6 @@ document.getElementById("sendMessageBtn").addEventListener("click", function(){
     var message = document.getElementById("sendMessageTxt");
     var messageValue = message.value.trim();
     if(messageValue != ""){
-
         socket.emit("new message", messageValue.replace(/<[^>]*>/g, ''));
         message.value = "";
     }
@@ -136,9 +135,7 @@ socket.on("send older message", (messages)=>{
                 allMessages.insertBefore(messageInMain, allMessages.firstChild);
             }
         });
-        countIndex += 20;
-    
-    
+        countIndex += 20;  
 })
 
 
