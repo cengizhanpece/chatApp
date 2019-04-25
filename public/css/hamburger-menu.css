@@ -58,7 +58,8 @@
 }
 
 #onlineUsers i,
-#logout{
+#logout,
+#profile{
     color: white;
     font-size: 18px;
     padding: 10px;
@@ -67,6 +68,7 @@
     border-bottom:1px solid white;
 }
 #onlineUsers i::before,
-#logout i::before{
+#logout i::before,
+#profile i::before{
     margin-right: 10px;
 }

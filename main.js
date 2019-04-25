@@ -48,7 +48,7 @@ app.get('/', (req,res)=>{
   }
   res.render(__dirname + '/views'+ '/index.ejs', {err: undefined});
 });
-
+// Sign In page render
 app.get('/signin', (req,res) =>{
   if(req.session.kullaniciId || req.session.sifre){
     res.redirect('/index');
@@ -56,7 +56,7 @@ app.get('/signin', (req,res) =>{
   }
   res.render(__dirname + '/views'+ '/signin.ejs', {err: undefined});
 });
-
+//chatRoom page render
 app.get('/index', (req,res) =>{
   if(!req.session.kullaniciId || !req.session.sifre){
     res.redirect('/signin');
@@ -66,11 +66,29 @@ app.get('/index', (req,res) =>{
   res.render(__dirname + '/views'+ '/chatroom.ejs', {kullaniciId: req.session.kullaniciId});
 });
 
+app.get('/profile', (req,res)=>{
+  //User have to login first
+  if(req.session.kullaniciId || req.session.sifre){
+    res.render(__dirname + '/views' + '/profile.ejs',
+    {
+      kullaniciId: req.session.kullaniciId,
+      err:undefined,
+    });
+    return true;
+  }
+  res.render(__dirname + '/views'+ '/signin.ejs', {err: undefined});
+
+});
+
+
+//Destroy sessions when user logout
 app.get('/logout', (req,res)=>{
   req.session.destroy();
   res.redirect('/signin');
   res.end();
 })
+
+//404 NOT FOUND PAGE
 app.get('*', (req,res)=>{
   res.status(404);
   res.render(__dirname + '/views' + '/notfound.ejs');

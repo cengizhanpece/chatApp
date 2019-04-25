@@ -1,0 +1,53 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+.landingpage {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.buttons input {
+    padding: 25px 40px;
+    font-size: 20px;              
+}
+
+.buttons input:last-child {
+    margin-left: 20px;
+}
+
+.buttons input[type="button"] {
+    border: 1px solid #333;
+    background-color: transparent;
+    color: #333;
+    transition: .3s;
+}
+
+.buttons input[type="button"]:hover {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+}
+.welcome{
+    color: #5e0a0a;
+    font-size: 50px;
+}
+@media screen and (max-width:475px){
+    .welcome{
+        font-size:30px;
+    }
+    .buttons input {
+        padding: 15px 30px;
+        font-size: 20px;              
+    }
+
+    .buttons input:last-child {
+        margin-left: 15px;
+    }
+}
