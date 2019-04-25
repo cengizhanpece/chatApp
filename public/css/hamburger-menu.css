@@ -47,7 +47,6 @@
 #onlineUsers{
     display: flex;
     flex-direction: column;
-    height: 0%;
 }
 
 .user{
@@ -58,12 +57,16 @@
     transition: 0.2s ease-out;
 }
 
-#onlineUsers i{
+#onlineUsers i,
+#logout{
     color: white;
     font-size: 18px;
     padding: 10px;
     cursor: pointer;
+    user-select: none;
+    border-bottom:1px solid white;
 }
-#onlineUsers i::before{
+#onlineUsers i::before,
+#logout i::before{
     margin-right: 10px;
 }

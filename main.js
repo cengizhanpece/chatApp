@@ -66,6 +66,10 @@ app.get('/index', (req,res) =>{
   res.render(__dirname + '/views'+ '/chatroom.ejs', {kullaniciId: req.session.kullaniciId});
 });
 
+app.get('/logout', (req,res)=>{
+  req.session.destroy();
+  res.end();
+})
 app.get('*', (req,res)=>{
   res.send('404 NOT FOUND');
 })
