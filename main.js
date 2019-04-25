@@ -72,7 +72,8 @@ app.get('/logout', (req,res)=>{
   res.end();
 })
 app.get('*', (req,res)=>{
-  res.send('404 NOT FOUND');
+  res.status(404);
+  res.render(__dirname + '/views' + '/notfound.ejs');
 })
 
 
