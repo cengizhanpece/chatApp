@@ -68,6 +68,7 @@ app.get('/index', (req,res) =>{
 
 app.get('/logout', (req,res)=>{
   req.session.destroy();
+  res.redirect('/signin');
   res.end();
 })
 app.get('*', (req,res)=>{
