@@ -5,25 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
-    <title><%= kullaniciId %>'s Profile</title>
+    <title><%= name %>'s Profile</title>
 </head>
 <body>
     <div class="landingpage">
         <p class="welcome">Here's What You Can Change</p>
+        <%if(err != undefined){
+            %> <p><%= err %></p> <%
+        }%>
         <div class="buttons">
             <input type="button" id="changeName" value="Change Name"></button>
             <form id="changeNameForm" class="form"method="POST" action="/changeName">
-                <input type="text" name="new">
+                <input type="text" name="new" placeholder="<%= name %>">
                 <input type="submit" value="Change">
             </form>
-            <input type="button" id="changeUserName" value="Change Name"></button>
-            <form id="changeUserNameForm" class="form" method="POST" action="/changeName">
-                <input type="text" name="new">
+            <input type="button" id="changeUserName" value="Change User Name"></button>
+            <form id="changeUserNameForm" class="form" method="POST" action="/changeUserName">
+                <input type="text" name="new" placeholder=" <%= userName %>">
                 <input type="submit" value="Change">
             </form>
             <input type="button" id="changePassword"value="Change Password"></button>  
-            <form id="changePasswordForm" class="form" method="POST" action="/changeName">
-                <input type="text" name="new">
+            <form id="changePasswordForm" class="form" method="POST" action="/changePassword">
+                <input type="password" name="new" placeholder="<%= password %>">
                 <input type="submit" value="Change">
             </form>         
         </div>

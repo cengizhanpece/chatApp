@@ -5,6 +5,7 @@ const express = require('express'),
       io = require('socket.io')(http);
       signup = require('./router/signup'),
       signin = require('./router/signin'),
+      profile = require('./router/profile'),
       session = require('express-session'),
       cookie = require('cookie'),
       cookieParser = require('cookie-parser'),
@@ -25,6 +26,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(signup);
 app.use(signin);
+app.use(profile);
 app.use(express.static(__dirname + '/public'));
 app.use(session({'secret': 'ChatApp',
 resave: true,
@@ -63,7 +65,7 @@ app.get('/index', (req,res) =>{
     return false;
   }
   res.cookie('kullaniciId', req.session.kullaniciId);
-  res.render(__dirname + '/views'+ '/chatroom.ejs', {kullaniciId: req.session.kullaniciId});
+  res.render(__dirname + '/views'+ '/chatroom.ejs', {kullaniciId: req.session.name});
 });
 
 app.get('/profile', (req,res)=>{
@@ -71,7 +73,9 @@ app.get('/profile', (req,res)=>{
   if(req.session.kullaniciId || req.session.sifre){
     res.render(__dirname + '/views' + '/profile.ejs',
     {
-      kullaniciId: req.session.kullaniciId,
+      userName: req.session.kullaniciId,
+      name: req.session.name,
+      password: req.session.sifre,
       err:undefined,
     });
     return true;

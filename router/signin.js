@@ -37,7 +37,10 @@ router.post('/signin',(req,res)=>{
               if(data.length == 0) resolve(false); // if collection empty return false
 
               data.forEach(element=>{
-                if(element.kullaniciId == kullaniciId && element.sifre == sifre){ // if id and ps match return true
+                if(element.kullaniciId == kullaniciId && element.sifre == sifre){  // if id and ps match return true
+                  req.session.kullaniciId = kullaniciId;
+                  req.session.sifre = sifre;
+                  req.session.name = element.name;
                   resolve(true);
                 }
               })
@@ -49,8 +52,6 @@ router.post('/signin',(req,res)=>{
         data()
         .then(found=>{
           if(found){
-            req.session.kullaniciId = kullaniciId;
-            req.session.sifre = sifre;
             res.redirect('index');
           }
           else if(found == false)
