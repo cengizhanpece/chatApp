@@ -11,10 +11,61 @@
     <div class="landingpage">
         <p class="welcome">Here's What You Can Change</p>
         <div class="buttons">
-            <input type="button" onclick="window.location.href='/changeName'" value="Change Name"></button>
-            <input type="button" onclick="window.location.href='/changeUserName'" value="Change Name"></button>
-            <input type="button" onclick="window.location.href='/changePassword'" value="Change Password"></button>           
+            <input type="button" id="changeName" value="Change Name"></button>
+            <form id="changeNameForm" class="form"method="POST" action="/changeName">
+                <input type="text" name="new">
+                <input type="submit" value="Change">
+            </form>
+            <input type="button" id="changeUserName" value="Change Name"></button>
+            <form id="changeUserNameForm" class="form" method="POST" action="/changeName">
+                <input type="text" name="new">
+                <input type="submit" value="Change">
+            </form>
+            <input type="button" id="changePassword"value="Change Password"></button>  
+            <form id="changePasswordForm" class="form" method="POST" action="/changeName">
+                <input type="text" name="new">
+                <input type="submit" value="Change">
+            </form>         
         </div>
     </div>
+
+    <script>
+        document.getElementById("changeName").addEventListener("click",()=>{
+            let form = document.getElementById("changeNameForm");
+            if(form.className == "form opened"){
+                form.className = "form";
+                form.style.transform = "scaleY(0)";
+                form.style.height = "0px";
+            }else{
+                form.className = "form opened";
+                form.style.transform = "scaleY(1)";
+                form.style.height = "100%";
+            }
+        });
+        document.getElementById("changeUserName").addEventListener("click",()=>{
+            let form = document.getElementById("changeUserNameForm");
+            if(form.className == "form opened"){
+                form.className = "form";
+                form.style.transform = "scaleY(0)";
+                form.style.height = "0px";
+            }else{
+                form.className = "form opened";
+                form.style.transform = "scaleY(1)";
+                form.style.height = "100%";
+            }
+        });
+        document.getElementById("changePassword").addEventListener("click",()=>{
+            let form = document.getElementById("changePasswordForm");
+            if(form.className == "form opened"){
+                form.className = "form";
+                form.style.transform = "scaleY(0)";
+                form.style.height = "0px";
+            }else{
+                form.className = "form opened";
+                form.style.transform = "scaleY(1)";
+                form.style.height = "100%";
+            }
+        });
+    </script>
 </body>
 </html>
