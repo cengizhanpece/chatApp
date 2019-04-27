@@ -38,17 +38,15 @@ router.post('/changeName', (req,res)=>{
                 db.collection("user").updateOne({name:name},{$set: {name:newName}},(err,response)=>{
                     if(err) console.log(err);
                     req.session.name = newName;
-                    db.collection("messages").updateMany({owner: name}, {$set : {owner: newName}}, (err,response)=>{
-                        if(err) console.log(err);
-
-                    })
                     res.render('../' + 'views/' + 'profile.ejs', {
                         userName: req.session.kullaniciId,
                         name: req.session.name,
                         password: req.session.sifre,
                         err:'Update Successfull',
                       });
-                    
+                })
+                db.collection("messages").updateMany({owner: name}, {$set : {owner: newName}}, (err,response)=>{
+                    if(err) console.log(err);
                 })
             }else{
                 res.render('../' + 'views/' + 'profile.ejs', {

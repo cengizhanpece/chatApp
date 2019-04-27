@@ -3,6 +3,21 @@ body {
     padding: 0px;
     height: 750px;
 }
+#goBack{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 15px 30px;
+    border: 1px solid #333;
+    background-color: transparent;
+    color: #333;
+    transition: .3s;
+    cursor: pointer;
+}
+#goBack:hover{
+    background-color : #333;
+    color : white;
+}
 
 .landingpage {
     height: 100%;
