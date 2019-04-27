@@ -64,7 +64,7 @@ app.get('/index', (req,res) =>{
     res.redirect('/signin');
     return false;
   }
-  res.cookie('kullaniciId', req.session.kullaniciId);
+  res.cookie('kullaniciId', req.session.name);
   res.render(__dirname + '/views'+ '/chatroom.ejs', {kullaniciId: req.session.name});
 });
 
