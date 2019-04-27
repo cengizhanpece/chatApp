@@ -34,8 +34,7 @@
     </div>
 
     <script>
-        document.getElementById("changeName").addEventListener("click",()=>{
-            let form = document.getElementById("changeNameForm");
+        function formC(form){
             if(form.className == "form opened"){
                 form.className = "form";
                 form.style.transform = "scaleY(0)";
@@ -45,31 +44,20 @@
                 form.style.transform = "scaleY(1)";
                 form.style.height = "100%";
             }
+        }
+        document.getElementById("changeName").addEventListener("click",()=>{
+            let form = document.getElementById("changeNameForm");
+            formC(form);
         });
         document.getElementById("changeUserName").addEventListener("click",()=>{
             let form = document.getElementById("changeUserNameForm");
-            if(form.className == "form opened"){
-                form.className = "form";
-                form.style.transform = "scaleY(0)";
-                form.style.height = "0px";
-            }else{
-                form.className = "form opened";
-                form.style.transform = "scaleY(1)";
-                form.style.height = "100%";
-            }
+            formC(form);
         });
         document.getElementById("changePassword").addEventListener("click",()=>{
             let form = document.getElementById("changePasswordForm");
-            if(form.className == "form opened"){
-                form.className = "form";
-                form.style.transform = "scaleY(0)";
-                form.style.height = "0px";
-            }else{
-                form.className = "form opened";
-                form.style.transform = "scaleY(1)";
-                form.style.height = "100%";
-            }
+            formC(form);
         });
+        
     </script>
 </body>
 </html>
