@@ -77,7 +77,6 @@ app.get('/profile', (req,res)=>{
     return true;
   }
   res.render(__dirname + '/views'+ '/signin.ejs', {err: undefined});
-
 });
 
 
