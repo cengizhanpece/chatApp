@@ -46,6 +46,7 @@ body {
     background-color: transparent;
     color: #333;
     transition: .3s;
+    width: 250px;
 }
 
 .buttons input[type="button"]:hover {
