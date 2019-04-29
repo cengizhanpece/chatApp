@@ -15,7 +15,7 @@ router.use(session({'secret': 'ChatApp',
 router.post('/changeName', (req,res)=>{
     let newName = req.body.new.trim();
     let found = false;
-    if(newName == ""){
+    if(newName == "" || newName.length >= 10){
         res.render('../' + 'views/' + 'profile.ejs', {
             userName: req.session.kullaniciId,
             name: req.session.name,
@@ -63,7 +63,7 @@ router.post('/changeName', (req,res)=>{
 
 router.post('/changeUserName', (req,res)=>{
     let userName = req.body.new.trim();
-    if(userName == ""){
+    if(userName == "" || userName.length >= 10){
         res.render('../' + 'views/' + 'profile.ejs', {
             userName: req.session.kullaniciId,
             name: req.session.name,
@@ -104,7 +104,7 @@ router.post('/changeUserName', (req,res)=>{
 
 router.post('/changePassword', (req,res)=>{
     let sifre = req.body.new.trim();
-    if(sifre == ""){
+    if(sifre == "" || sifre.length >= 10 ){
         res.render('../' + 'views/' + 'profile.ejs', {
             userName: req.session.kullaniciId,
             name: req.session.name,
