@@ -28,9 +28,10 @@ app.use(signup);
 app.use(signin);
 app.use(profile);
 app.use(express.static(__dirname + '/public'));
+
 app.use(session({'secret': 'ChatApp',
-resave: true,
-saveUninitialized: true
+  resave: true,
+  saveUninitialized: true
 }));
 
 
