@@ -1,3 +1,3 @@
 # chatApp
 
-liveDemo = https://salty-cove-54495.herokuapp.com/
+liveDemo = https://chatapp-cengizhanpece.herokuapp.com/
