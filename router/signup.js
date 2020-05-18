@@ -12,6 +12,7 @@ const mydb = "mydb"
 //signup form ile tetiklenir
 router.post('/signup',(req,res) =>{
     var kullaniciId = req.body.kullaniciId;
+    var name = req.body.name;
     var sifre = req.body.Sifre;
     var sifreTekrar = req.body.SifreTekrar;
     console.log(uri);
@@ -57,7 +58,7 @@ router.post('/signup',(req,res) =>{
             if (err) console.log(err);
             const db = client.db(mydb);
             //Databaseye kaydet 
-            db.collection("user").insertOne({kullaniciId: kullaniciId, sifre: sifre});
+            db.collection("user").insertOne({kullaniciId: kullaniciId, sifre: sifre, name: name});
             //Giriş yapması için signin sayfasına yönlendir
             res.redirect('/signin');
           })
