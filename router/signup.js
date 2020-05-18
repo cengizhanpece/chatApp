@@ -38,12 +38,21 @@ router.post('/signup',(req,res) =>{
           .collection("user")
           .find()
           .toArray((err,data)=>{
+            let found = false;
             if(err) reject(err);
             // Eğer hiç data yoksa true döndür, hiç data yoksa kullanıcıId kullanılabilirdir
             if(data.length == 0) resolve(true); 
-            data.forEach(element=>{ if(element.kullaniciId == kullaniciId){ resolve(false); } // Kullanıcı Id önceden varsa false döndür
-              resolve(true); // kullanıcıId yoksa true döndür
+            data.forEach(element=>{
+              
+              if(element.kullaniciId == kullaniciId){ // Kullanıcı Id önceden varsa false döndür
+                console.log(kullaniciId);
+                resolve(false);
+                found = true;
+              }
             });
+            if(!found){
+              resolve(true);
+            }
           });
         });
       };
@@ -52,7 +61,7 @@ router.post('/signup',(req,res) =>{
       data()
       .then(found=>{
          // eğer kullanıcı adı kullanılabilirse
-        if(found || null){
+        if(found){
           //Database bağlantısı oluştur
           mongodb.connect(uri,option,(err,client)=>{
             if (err) console.log(err);
